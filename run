@@ -1,0 +1,12 @@
+#!/bin/sh
+
+# have to create tun and net dirs
+[ -d /dev/net ] ||
+    mkdir -p /dev/net
+[ -c /dev/net/tun ] ||
+    mknod /dev/net/tun c 10 200
+
+# todo make this a python script that startsup and manages the local cjdns instance
+/usr/bin/cjdroute --genconf | /usr/bin/cjdroute --cleanconf > /etc/cjdroute.conf
+/usr/bin/cjdroute < /etc/cjdroute.conf
+
